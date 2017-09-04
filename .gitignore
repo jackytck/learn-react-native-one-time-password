@@ -11,6 +11,7 @@
 
 # creds
 serviceAccountKey.json
+.env
 
 # misc
 .DS_Store

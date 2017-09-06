@@ -16,6 +16,15 @@ module.exports = function (req, res) {
         body: `Your code is ${code}`,
         to: phone,
         from: process.env.TWILIO_PHONE
+      }, error => {
+        if (error) {
+          return res.status(422).send({ error })
+        }
+
+        admin.database().ref(`users/${phone}`)
+          .update({ code, codeValid: true }, () => {
+            res.send({ success: true })
+          })
       })
     })
     .catch(error => {
